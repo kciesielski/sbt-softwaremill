@@ -92,6 +92,7 @@ object SbtSoftwareMill extends AutoPlugin {
       ))
     }
 
+    import com.lucidchart.sbt.scalafmt.ScalafmtCorePlugin.autoImport._
     import autoImport._
 
     lazy val clippyBuildSettings = Seq(
@@ -130,6 +131,10 @@ object SbtSoftwareMill extends AutoPlugin {
       }
     )
 
+    lazy val smlScalafmSettings = Seq(
+      scalafmtConfig in ThisBuild := file(".scalafmt-sml.conf")
+
+    )
     lazy val commonSmlBuildSettings = Seq(
       outputStrategy := Some(StdoutOutput),
       autoCompilerPlugins := true,
@@ -151,6 +156,7 @@ object SbtSoftwareMill extends AutoPlugin {
       commonSmlBuildSettings ++
       wartRemoverSettings ++
       clippyBuildSettings ++
+      smlScalafmSettings ++
       dependencyUpdatesSettings
   }
 }
